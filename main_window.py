@@ -38,7 +38,15 @@ class MainWindow(QMainWindow):
         self.add_button.clicked.connect(self.add_task)
         self.task_input.returnPressed.connect(self.add_task)
         self.delete_button.clicked.connect(self.delete_task)
+        self.clear_button.clicked.connect(self.clear_tasks)
         
+    def clear_tasks(self):
+        if self.task_list.count()==0:
+            return
+        ans= QMessageBox.question(self, "Очистка",
+                        "Вы точно хотите удалить все задачи?")
+        if ans == QMessageBox.StandardButton.Yes:
+            self.task_list.clear()
 
     def delete_task(self):
         r = self.task_list.currentRow()
