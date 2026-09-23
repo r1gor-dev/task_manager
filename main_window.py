@@ -56,7 +56,7 @@ class MainWindow(QMainWindow):
             1 for i in range(cnt)
                 if self.task_list.item(i).checkState() == Qt.CheckState.Checked
         )
-        self.counter_label.setText(f"Количество задач: {cnt}")
+        self.counter_label.setText(f"Количество задач: {cnt} | Выполнено: {marked}")
 
     def delete_marked_tasks(self):
         rm_flag = False
