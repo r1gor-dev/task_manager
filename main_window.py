@@ -21,8 +21,8 @@ class MainWindow(QMainWindow):
         input_layout.addWidget(self.task_input)
         input_layout.addWidget(self.add_button)
         layout.addLayout(input_layout)
-        self.tasK_list = QListWidget()
-        layout.addWidget(self.tasK_list)
+        self.task_list = QListWidget()
+        layout.addWidget(self.task_list)
 
         buttons_layout = QHBoxLayout()
         self.delete_button = QPushButton("Удалить")
@@ -32,5 +32,29 @@ class MainWindow(QMainWindow):
         layout.addLayout(buttons_layout)
         self.counter_label = QLabel("Количество задач: 0")
         layout.addWidget(self.counter_label)
-        
+
         center.setLayout(layout)
+
+        self.add_button.clicked.connect(self.add_task)
+        self.task_input.returnPressed.connect(self.add_task)
+        self.delete_button.clicked.connect(self.delete_task)
+        
+
+    def delete_task(self):
+        r = self.task_list.currentRow()
+        if r>=0:
+            ans= QMessageBox.question(self, "Удаление",
+                        "Вы хотите удалить указанную задачу?")
+            if ans == QMessageBox.StandardButton.Yes:
+                self.task_list.takeItem(r)
+        else:
+            QMessageBox.warning(self, "Ошибка","Выберите задачу для удаления")
+
+
+    def add_task(self):
+        text = self.task_input.text().strip()
+        if text:
+            self.task_list.addItem(text)
+            self.task_input.clear()
+        else:
+            QMessageBox.warning(self, "Ошибка", "Введите название задачи")
