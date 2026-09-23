@@ -6,6 +6,11 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Менеджер задач")
         self.resize(500, 400)
 
+        self.init_ui()
+        self.connect_signals()
+        self.update_counter()
+
+    def init_ui(self):
         center= QWidget()
         self.setCentralWidget(center)
         layout = QVBoxLayout()
@@ -13,7 +18,6 @@ class MainWindow(QMainWindow):
         self.task_label = QLabel("Новая задача:")
         layout.addWidget(self.task_label)
 
-        
         input_layout= QHBoxLayout()
         self.task_input = QLineEdit()
         self.task_input.setPlaceholderText("Название задачи")
@@ -35,6 +39,7 @@ class MainWindow(QMainWindow):
 
         center.setLayout(layout)
 
+    def connect_signals(self):
         self.add_button.clicked.connect(self.add_task)
         self.task_input.returnPressed.connect(self.add_task)
         self.delete_button.clicked.connect(self.delete_task)
